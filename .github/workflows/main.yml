@@ -38,9 +38,11 @@ jobs:
         release_name: Release ${{ github.ref }}
         draft: false
         prerelease: false
-    - name: Upload to release
-      uses: JasonEtco/upload-to-release@master
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v1-release
       with:
-        args: ./build/app/outputs/apk/release/app-release-signed.apk application/apk
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: build/app/outputs/apk/release/app-release-signed.apk
+        asset_name: gbnlive.apk
+        tag: ${{ github.ref }}
+        overwrite: true
